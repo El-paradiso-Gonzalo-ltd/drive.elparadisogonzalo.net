@@ -1,0 +1,23 @@
+name: Deploy to Cloudflare Workers
+
+on:
+    branches: [ghost]
+    paths:
+      - "dist/**"
+      - "/"
+      - "wrangler.toml"
+      - ".github/workflows/deploy-cloudflare.yml"
+  workflow_dispatch:
+  
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Deploy Worker and assets
+        uses: cloudflare/wrangler-action@v3
